@@ -17,6 +17,7 @@
 		D7580AC81BD98AB80008789F /* TaskListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7580AC71BD98AB80008789F /* TaskListTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		D7580ACA1BD98C2F0008789F /* TaskDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7580AC91BD98C2F0008789F /* TaskDetailTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		D7580ACC1BD98D1D0008789F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7580ACB1BD98D1D0008789F /* Task.swift */; settings = {ASSET_TAGS = (); }; };
+		D7580ACE1BD99CA80008789F /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7580ACD1BD99CA80008789F /* TaskController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		D7580AC71BD98AB80008789F /* TaskListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskListTableViewController.swift; sourceTree = "<group>"; };
 		D7580AC91BD98C2F0008789F /* TaskDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDetailTableViewController.swift; sourceTree = "<group>"; };
 		D7580ACB1BD98D1D0008789F /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		D7580ACD1BD99CA80008789F /* TaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				68D78A271BD6C26500509A87 /* ViewController.swift */,
 				68D78A291BD6C26500509A87 /* Main.storyboard */,
 				D7580ACB1BD98D1D0008789F /* Task.swift */,
+				D7580ACD1BD99CA80008789F /* TaskController.swift */,
 				D7580AC91BD98C2F0008789F /* TaskDetailTableViewController.swift */,
 				D7580AC71BD98AB80008789F /* TaskListTableViewController.swift */,
 				68D78A2C1BD6C26500509A87 /* Assets.xcassets */,
@@ -268,6 +271,7 @@
 				68D78A281BD6C26500509A87 /* ViewController.swift in Sources */,
 				D7580ACC1BD98D1D0008789F /* Task.swift in Sources */,
 				68D78A261BD6C26500509A87 /* AppDelegate.swift in Sources */,
+				D7580ACE1BD99CA80008789F /* TaskController.swift in Sources */,
 				D7580ACA1BD98C2F0008789F /* TaskDetailTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
