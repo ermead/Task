@@ -30,6 +30,20 @@ class TaskController {
         
     }
     
+    var mockedTask: [Task] {
+        
+        get {
+        
+            return [Task(name: "Get Milk", isComplete: false), Task(name: "Pick up Dry Cleaning", isComplete: true), Task(name: "walk dog", isComplete: false), Task(name: "wash car", notes: "my lexus", due: NSDate(), isComplete: false)]
+            
+        }
+        
+    }
+    
+    init(){
+        tasks = mockedTask
+    }
+    
     func addTask(task: Task){
         tasks.append(task)
     }
