@@ -34,21 +34,37 @@ class Task : NSObject, NSCoding {
         
         guard let name = aDecoder.decodeObjectForKey(Task.NameKey) as? String,
         notes = aDecoder.decodeObjectForKey(Task.NotesKey) as? String,
-        due = aDecoder.decodeObjectForKey(Task.DueKey) as? NSDate,
         isComplete = aDecoder.decodeObjectForKey(Task.IsCompleteKey) as? Bool
         
             else {print("Coder Initializer failed..."); return nil }
       
-        self.init(name: name, notes: notes, due: due, isComplete: isComplete)
+        if let due: NSDate = aDecoder.decodeObjectForKey(Task.DueKey) as? NSDate {
+            self.init(name: name, notes: notes, due: due, isComplete: isComplete)
+        } else {
+            let nilDue: NSDate? = nil
+            self.init(name: name, notes: notes, due: nilDue, isComplete: isComplete)
+        }
+
+        
         
     }
     
     func encodeWithCoder(aCoder: NSCoder){
         
         aCoder.encodeObject(self.name, forKey: Task.NameKey)
-        aCoder.encodeObject(self.notes, forKey: Task.NotesKey)
-        aCoder.encodeObject(self.due, forKey: Task.DueKey)
         aCoder.encodeObject(self.isComplete, forKey: Task.IsCompleteKey)
+
+        // Optionals:
+        if let notes = self.notes {
+            aCoder.encodeObject(notes, forKey: Task.NotesKey)
+        } else {
+            // give default value
+            let emptyNotes = ""
+            aCoder.encodeObject(emptyNotes, forKey: Task.NotesKey)
+        }
+        
+        aCoder.encodeObject(due, forKey: Task.DueKey)
+        
         
     }
 

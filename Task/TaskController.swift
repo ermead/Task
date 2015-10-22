@@ -11,6 +11,8 @@ import Foundation
 
 class TaskController {
     
+    static let TaskKey = "taskKey"
+    
     static let sharedController = TaskController()
     
     var tasks : [Task] = []
@@ -35,23 +37,46 @@ class TaskController {
         get {
         
             return [Task(name: "Get Milk", isComplete: false), Task(name: "Pick up Dry Cleaning", isComplete: true), Task(name: "walk dog", isComplete: false), Task(name: "wash car", notes: "my lexus", due: NSDate(), isComplete: false)]
-            
         }
-        
     }
     
     init(){
-        tasks = mockedTask
+//        tasks = mockedTask
+        loadFromPersistentStorage()
+  
     }
     
     func addTask(task: Task){
         tasks.append(task)
+        saveToPersistentStorage()
     }
     
     func removeTasks(task : Task){
         let index = tasks.indexOf(task)
         tasks.removeAtIndex(index!)
+        saveToPersistentStorage()
         
+    }
+    
+    func saveToPersistentStorage(){
+    
+        NSKeyedArchiver.archiveRootObject(self.tasks, toFile: self.filePath(TaskController.TaskKey))
+
+    }
+    
+    func loadFromPersistentStorage(){
+        
+        if let newTasks = NSKeyedUnarchiver.unarchiveObjectWithFile(self.filePath(TaskController.TaskKey)) as? [Task] {
+            tasks = newTasks
+        }
+    }
+    
+    func filePath(key: String) -> String {
+        let directorySearchResults = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory,NSSearchPathDomainMask.AllDomainsMask, true)
+        let documentsPath: AnyObject = directorySearchResults[0]
+        let entriesPath = documentsPath.stringByAppendingString("/\(key).plist")
+        
+        return entriesPath
     }
 
     
