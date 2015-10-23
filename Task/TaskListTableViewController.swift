@@ -8,8 +8,8 @@
 
 import UIKit
 
-class TaskListTableViewController: UITableViewController {
-
+class TaskListTableViewController: UITableViewController {    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,6 +30,15 @@ class TaskListTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            
+                TaskController.sharedController.removeTasks(indexPath.row)
+                tableView.reloadData()
+            
+        }
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

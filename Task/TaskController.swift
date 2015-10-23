@@ -58,6 +58,13 @@ class TaskController {
         
     }
     
+    func removeTasks(index: Int) {
+        
+        tasks.removeAtIndex(index)
+        saveToPersistentStorage()
+        
+    }
+    
     func saveToPersistentStorage(){
     
         NSKeyedArchiver.archiveRootObject(self.tasks, toFile: self.filePath(TaskController.TaskKey))
