@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="SEU-VI-XDZ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -14,14 +15,44 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskListCell" id="KaR-Eq-xmA">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskListCell" id="KaR-Eq-xmA" customClass="ButtonTableViewCell" customModule="Task" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KaR-Eq-xmA" id="IqU-vn-VKp">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rg-Xn-0d4">
+                                            <rect key="frame" x="550" y="2" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="08T-Zk-VVi"/>
+                                                <constraint firstAttribute="height" constant="40" id="4J8-sp-ZVd"/>
+                                                <constraint firstAttribute="width" secondItem="7rg-Xn-0d4" secondAttribute="height" multiplier="1:1" id="cbD-c1-697"/>
+                                            </constraints>
+                                            <state key="normal" title="  " image="incomplete"/>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="KaR-Eq-xmA" eventType="touchUpInside" id="lPn-ZH-Xg3"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UnG-4t-2kg">
+                                            <rect key="frame" x="8" y="0.0" width="534" height="44"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="UnG-4t-2kg" firstAttribute="top" secondItem="IqU-vn-VKp" secondAttribute="top" id="FEx-g4-nEj"/>
+                                        <constraint firstItem="UnG-4t-2kg" firstAttribute="leading" secondItem="IqU-vn-VKp" secondAttribute="leading" constant="8" id="fy2-jC-tTb"/>
+                                        <constraint firstItem="7rg-Xn-0d4" firstAttribute="centerY" secondItem="IqU-vn-VKp" secondAttribute="centerY" id="gbv-JR-ftH"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="7rg-Xn-0d4" secondAttribute="trailing" constant="2" id="gmk-yz-pQv"/>
+                                        <constraint firstItem="UnG-4t-2kg" firstAttribute="centerY" secondItem="7rg-Xn-0d4" secondAttribute="centerY" id="l9V-4Y-AL5"/>
+                                        <constraint firstItem="7rg-Xn-0d4" firstAttribute="leading" secondItem="UnG-4t-2kg" secondAttribute="trailing" constant="8" symbolic="YES" id="ucp-F8-PpW"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="button" destination="7rg-Xn-0d4" id="8w5-NE-efb"/>
+                                    <outlet property="primaryLabel" destination="UnG-4t-2kg" id="44J-2E-3IS"/>
                                     <segue destination="pMm-K7-OMS" kind="show" identifier="showCellDetail" id="Rn0-mv-NT6"/>
                                 </connections>
                             </tableViewCell>
@@ -140,7 +171,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="6Z7-mp-fEN">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Lx7-9D-TVS"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Lx7-9D-TVS">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="pMm-K7-OMS" id="NPj-05-k5O"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="dueDateDetailLabel" destination="WDG-lV-cHZ" id="5n8-W7-9Ov"/>
@@ -188,6 +223,9 @@
             <point key="canvasLocation" x="2145" y="-787"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="incomplete" width="512" height="512"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="I9C-d3-gVe"/>
     </inferredMetricsTieBreakers>

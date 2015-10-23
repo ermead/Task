@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskListTableViewController: UITableViewController {    
+class TaskListTableViewController: UITableViewController, ButtonTableViewCellDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +25,10 @@ class TaskListTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewDidAppear(animated: Bool) {
+        tableView.reloadData()
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -41,6 +45,16 @@ class TaskListTableViewController: UITableViewController {
         }
     }
 
+    func buttonCellButtonTapped(sender: ButtonTableViewCell) {
+        
+        let indexPath = tableView.indexPathForCell(sender)
+        let task = TaskController.sharedController.tasks[(indexPath?.row)!]
+        task.isComplete = !task.isComplete
+        TaskController.sharedController.saveToPersistentStorage()
+        self.tableView.reloadData()
+        
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return TaskController.sharedController.tasks.count
@@ -48,11 +62,12 @@ class TaskListTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
        
-        let cell = tableView.dequeueReusableCellWithIdentifier("taskListCell", forIndexPath: indexPath)
-
-        cell.textLabel?.text = TaskController.sharedController.tasks[indexPath.row].name
-
-        return cell
+        let cell = tableView.dequeueReusableCellWithIdentifier("taskListCell", forIndexPath: indexPath) as? ButtonTableViewCell
+    
+        cell?.delegate = self
+        cell?.updateWithTask(TaskController.sharedController.tasks[indexPath.row])
+       
+        return cell!
     }
    
 

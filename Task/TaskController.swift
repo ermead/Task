@@ -41,9 +41,8 @@ class TaskController {
     }
     
     init(){
-//        tasks = mockedTask
         loadFromPersistentStorage()
-  
+        print("Initialized")
     }
     
     func addTask(task: Task){
@@ -72,7 +71,7 @@ class TaskController {
     }
     
     func loadFromPersistentStorage(){
-        
+        print("loading from storage")
         if let newTasks = NSKeyedUnarchiver.unarchiveObjectWithFile(self.filePath(TaskController.TaskKey)) as? [Task] {
             tasks = newTasks
         }
