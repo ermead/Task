@@ -43,7 +43,7 @@
             </objects>
             <point key="canvasLocation" x="2811" y="-787"/>
         </scene>
-        <!--Task Detail Table View Controller-->
+        <!--Title-->
         <scene sceneID="OQv-ku-bh8">
             <objects>
                 <tableViewController id="pMm-K7-OMS" customClass="TaskDetailTableViewController" customModule="Task" customModuleProvider="target" sceneMemberID="viewController">
@@ -135,10 +135,18 @@
                             <outlet property="delegate" destination="pMm-K7-OMS" id="fnf-92-e9w"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="6Z7-mp-fEN">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Lx7-9D-TVS"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="dueDateDetailLabel" destination="WDG-lV-cHZ" id="5n8-W7-9Ov"/>
+                        <outlet property="nameDetailLabel" destination="Gk5-xk-xhb" id="wPF-jT-L6r"/>
+                        <outlet property="notesDetailLabel" destination="J9l-Y9-2p9" id="VxB-wV-zQJ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XoH-NH-jJC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2811" y="-107"/>
+            <point key="canvasLocation" x="2811" y="-86"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="I4q-Ak-kOf">

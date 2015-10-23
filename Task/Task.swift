@@ -29,6 +29,7 @@ class Task : NSObject, NSCoding {
         self.isComplete = isComplete
     }
     
+    
     required convenience init?(coder aDecoder : NSCoder){
         
         

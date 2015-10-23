@@ -10,6 +10,11 @@ import UIKit
 
 class TaskDetailTableViewController: UITableViewController {
 
+    
+    @IBOutlet weak var nameDetailLabel: UITextField!
+    @IBOutlet weak var dueDateDetailLabel: UITextField!
+    @IBOutlet weak var notesDetailLabel: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,18 +29,26 @@ class TaskDetailTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func upDateWithTask(task: Task){
+        
+        nameDetailLabel.text = task.name
+        dueDateDetailLabel.text = task.due?.stringValue()
+        notesDetailLabel.text = task.notes
+        
+    }
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
+//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 0
+//    }
+//
+//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        // #warning Incomplete implementation, return the number of rows
+//        return 0
+//    }
 
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
