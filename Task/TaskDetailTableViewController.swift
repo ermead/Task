@@ -8,12 +8,15 @@
 
 import UIKit
 
-class TaskDetailTableViewController: UITableViewController {
+class TaskDetailTableViewController: UITableViewController, UITextFieldDelegate {
 
+    @IBOutlet var dueDatePickerOutlet: UIDatePicker!
     
     @IBOutlet weak var nameDetailLabel: UITextField!
     @IBOutlet weak var dueDateDetailLabel: UITextField!
     @IBOutlet weak var notesDetailLabel: UITextView!
+    
+    var dueDatePlaceholder: NSDate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,14 +26,38 @@ class TaskDetailTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        dueDateDetailLabel.inputView = dueDatePickerOutlet
+        
     }
 
+    
+    @IBAction func datePickerValueChanged(sender: UIDatePicker) {
+        
+        dueDatePlaceholder = sender.date
+        print(dueDatePlaceholder?.stringValue())
+        
+    }
+    
+   
+    @IBAction func userTappedView(sender: AnyObject) {
+    
+        self.nameDetailLabel.resignFirstResponder()
+        self.dueDateDetailLabel.resignFirstResponder()
+        self.notesDetailLabel.resignFirstResponder()
+         print("user tapped")
+    
+    }
+    
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func upDateWithTask(task: Task){
+    func updateWithTask(task: Task){
         
         nameDetailLabel.text = task.name
         dueDateDetailLabel.text = task.due?.stringValue()

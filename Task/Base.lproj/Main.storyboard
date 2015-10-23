@@ -21,6 +21,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="pMm-K7-OMS" kind="show" identifier="showCellDetail" id="Rn0-mv-NT6"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -31,7 +34,7 @@
                     <navigationItem key="navigationItem" id="RR4-mw-yIZ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="kHu-fi-T2s">
                             <connections>
-                                <segue destination="pMm-K7-OMS" kind="show" id="I9C-d3-gVe"/>
+                                <segue destination="pMm-K7-OMS" kind="show" identifier="newCellDetail" id="I9C-d3-gVe"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -133,6 +136,7 @@
                         <connections>
                             <outlet property="dataSource" destination="pMm-K7-OMS" id="Zgv-cz-iri"/>
                             <outlet property="delegate" destination="pMm-K7-OMS" id="fnf-92-e9w"/>
+                            <outletCollection property="gestureRecognizers" destination="yWB-Ab-lsf" appends="YES" id="k2X-rM-hzd"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="6Z7-mp-fEN">
@@ -140,11 +144,28 @@
                     </navigationItem>
                     <connections>
                         <outlet property="dueDateDetailLabel" destination="WDG-lV-cHZ" id="5n8-W7-9Ov"/>
+                        <outlet property="dueDatePickerOutlet" destination="d0O-Zz-ZOb" id="ZIq-Ce-IEt"/>
                         <outlet property="nameDetailLabel" destination="Gk5-xk-xhb" id="wPF-jT-L6r"/>
                         <outlet property="notesDetailLabel" destination="J9l-Y9-2p9" id="VxB-wV-zQJ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XoH-NH-jJC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="yWB-Ab-lsf">
+                    <connections>
+                        <action selector="userTappedView:" destination="pMm-K7-OMS" id="dTB-Y6-Chd"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="d0O-Zz-ZOb">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <date key="date" timeIntervalSinceReferenceDate="467328867.95461398">
+                        <!--2015-10-23 21:34:27 +0000-->
+                    </date>
+                    <connections>
+                        <action selector="datePickerValueChanged:" destination="pMm-K7-OMS" eventType="valueChanged" id="Ubj-3E-ZdX"/>
+                    </connections>
+                </datePicker>
             </objects>
             <point key="canvasLocation" x="2811" y="-86"/>
         </scene>
@@ -167,4 +188,7 @@
             <point key="canvasLocation" x="2145" y="-787"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="I9C-d3-gVe"/>
+    </inferredMetricsTieBreakers>
 </document>

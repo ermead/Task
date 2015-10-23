@@ -91,14 +91,39 @@ class TaskListTableViewController: UITableViewController {
     }
     */
 
-    /*
+  
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "showCellDetail" {
+            
+            if let tdvc = segue.destinationViewController as? TaskDetailTableViewController {
+                
+                _ = tdvc.view
+                if let indexPath = tableView.indexPathForSelectedRow{
+                    let index = indexPath.row
+                    let task = TaskController.sharedController.tasks[index]
+                    tdvc.updateWithTask(task)
+                }
+            }
+            
+            
+        }
+        
+        
+        
     }
-    */
+  
 
 }
+
+
+
+
+
+
+
+
