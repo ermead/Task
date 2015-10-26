@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 
 class TaskController {
@@ -15,19 +16,48 @@ class TaskController {
     
     static let sharedController = TaskController()
     
-    var tasks : [Task] = []
+    var tasks : [Task] {
+        
+        let moc = Stack.sharedStack.managedObjectContext
+        let fetchRequest = NSFetchRequest(entityName: "Task")
+        
+        do {
+            if let tasks =  try moc.executeFetchRequest(fetchRequest) as? [Task] {
+                return tasks
+            } else {
+                return []
+            }
+        } catch { return []}
+    }
+    
+//    let completePredicate = NSPredicate(format: "isComplete", argumentArray: [true])
+//    let incompletePredicate = NSPredicate(format: "isComplete", argumentArray: [false])
+    
+    
     
     var completedTasks : [Task] {
         
         get{
-            return [] //use a filter func on tasks array, return completed tasks
+            var array: [Task] = []
+            for task in tasks {
+                if task.isComplete.boolValue {
+                    array.append(task)
+                }
+            }
+            return array //use a filter func on tasks array, return completed tasks
         }
     
     }
     var incompleteTasks : [Task] {
         
         get{
-            return [] //use a filter func on tasks array, return incomplete tasks
+            var array: [Task] = []
+            for task in tasks {
+                if !task.isComplete.boolValue {
+                    array.append(task)
+                }
+            }
+            return array //use a filter func on tasks array, return incompleted tasks
         }
         
     }
@@ -40,42 +70,41 @@ class TaskController {
         }
     }
     
-    init(){
-        loadFromPersistentStorage()
-        print("Initialized")
-    }
-    
     func addTask(task: Task){
-        tasks.append(task)
+     
         saveToPersistentStorage()
     }
     
-    func removeTasks(task : Task){
-        let index = tasks.indexOf(task)
-        tasks.removeAtIndex(index!)
-        saveToPersistentStorage()
-        
-    }
+//    func removeTasks(task : Task){
+//        if let moc = task.managedObjectContext {
+//            moc.deleteObject(task)
+//        }
+//        saveToPersistentStorage()
+//        
+//    }
+    
     
     func removeTasks(index: Int) {
         
-        tasks.removeAtIndex(index)
+        
+        if let moc = tasks[index].managedObjectContext {
+            moc.deleteObject(tasks[index])
+        } else {print("error removing!")}
+        
         saveToPersistentStorage()
         
     }
     
     func saveToPersistentStorage(){
     
-        NSKeyedArchiver.archiveRootObject(self.tasks, toFile: self.filePath(TaskController.TaskKey))
+        let moc = Stack.sharedStack.managedObjectContext
+        
+        do {
+            try moc.save()
+        } catch { print("Error Saving")}
 
     }
     
-    func loadFromPersistentStorage(){
-        print("loading from storage")
-        if let newTasks = NSKeyedUnarchiver.unarchiveObjectWithFile(self.filePath(TaskController.TaskKey)) as? [Task] {
-            tasks = newTasks
-        }
-    }
     
     func filePath(key: String) -> String {
         let directorySearchResults = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory,NSSearchPathDomainMask.AllDomainsMask, true)

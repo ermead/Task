@@ -10,6 +10,8 @@ import UIKit
 
 class TaskDetailTableViewController: UITableViewController, UITextFieldDelegate {
 
+    var index: Int? = nil
+    
     @IBOutlet var dueDatePickerOutlet: UIDatePicker!
     
     @IBOutlet weak var nameDetailLabel: UITextField!
@@ -35,14 +37,32 @@ class TaskDetailTableViewController: UITableViewController, UITextFieldDelegate 
     @IBAction func datePickerValueChanged(sender: UIDatePicker) {
         
         dueDatePlaceholder = sender.date
+        dueDateDetailLabel.text = (dueDatePlaceholder?.stringValue())!
         print(dueDatePlaceholder?.stringValue())
         
     }
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
-    
-    
-    
+        
+        if let realIndex = index {
+        // delete task that is being edited
+            TaskController.sharedController.removeTasks(realIndex)
+        }
+        
+        // create new one
+        let name = nameDetailLabel.text
+        let notes = notesDetailLabel.text
+        if let due = dueDatePlaceholder {
+            Task(name: name!, notes: notes, due: due, isComplete: false)
+        } else {
+            Task(name: name!, notes: notes, due: nil, isComplete: false)
+        }
+        
+        
+        TaskController.sharedController.saveToPersistentStorage()
+
+        self.navigationController?.popViewControllerAnimated(true)
+        
     }
     
     
@@ -64,11 +84,13 @@ class TaskDetailTableViewController: UITableViewController, UITextFieldDelegate 
         // Dispose of any resources that can be recreated.
     }
     
-    func updateWithTask(task: Task){
+    func updateWithTask(index: Int){
         
-        nameDetailLabel.text = task.name
-        dueDateDetailLabel.text = task.due?.stringValue()
-        notesDetailLabel.text = task.notes
+        self.index = index
+        
+        nameDetailLabel.text = TaskController.sharedController.tasks[index].name
+        dueDateDetailLabel.text = TaskController.sharedController.tasks[index].due?.stringValue()
+        notesDetailLabel.text = TaskController.sharedController.tasks[index].notes
         
     }
 

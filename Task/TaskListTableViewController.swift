@@ -49,7 +49,7 @@ class TaskListTableViewController: UITableViewController, ButtonTableViewCellDel
         
         let indexPath = tableView.indexPathForCell(sender)
         let task = TaskController.sharedController.tasks[(indexPath?.row)!]
-        task.isComplete = !task.isComplete
+        task.isComplete = !task.isComplete.boolValue
         TaskController.sharedController.saveToPersistentStorage()
         self.tableView.reloadData()
         
@@ -57,6 +57,7 @@ class TaskListTableViewController: UITableViewController, ButtonTableViewCellDel
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+//        print(TaskController.sharedController.tasks.count)
         return TaskController.sharedController.tasks.count
     }
 
@@ -120,8 +121,8 @@ class TaskListTableViewController: UITableViewController, ButtonTableViewCellDel
                 _ = tdvc.view
                 if let indexPath = tableView.indexPathForSelectedRow{
                     let index = indexPath.row
-                    let task = TaskController.sharedController.tasks[index]
-                    tdvc.updateWithTask(task)
+                    
+                    tdvc.updateWithTask(index)
                 }
             }
             

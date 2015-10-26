@@ -53,7 +53,7 @@ extension ButtonTableViewCell {
     
     func updateWithTask (task: Task) {
         primaryLabel.text = task.name
-        upDateButton(task.isComplete)
+        upDateButton(task.isComplete.boolValue)
     }
     
 }
